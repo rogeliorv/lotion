@@ -4,8 +4,8 @@ import { Command, CommandInput } from "@/components/tailwind/ui/command";
 
 import { useCompletion } from "ai/react";
 import { ArrowUp } from "lucide-react";
-import { useEditor } from "novel";
-import { addAIHighlight } from "novel/extensions";
+import { useEditor } from "lotion";
+import { addAIHighlight } from "lotion/extensions";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import { toast } from "sonner";
@@ -27,7 +27,6 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
   const [inputValue, setInputValue] = useState("");
 
   const { completion, complete, isLoading } = useCompletion({
-    // id: "novel",
     api: "/api/generate",
     onResponse: (response) => {
       if (response.status === 429) {

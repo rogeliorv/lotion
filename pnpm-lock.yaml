@@ -25,8 +25,6 @@ importers:
         specifier: ^8.4.27
         version: 8.4.35
 
-  apps/docs: {}
-
   apps/web:
     dependencies:
       '@radix-ui/react-dialog':
@@ -83,6 +81,9 @@ importers:
       highlight.js:
         specifier: ^11.9.0
         version: 11.9.0
+      lotion:
+        specifier: workspace:^
+        version: link:../../packages/headless
       lowlight:
         specifier: ^3.1.0
         version: 3.1.0
@@ -95,9 +96,6 @@ importers:
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      novel:
-        specifier: workspace:^
-        version: link:../../packages/headless
       openai:
         specifier: ^4.27.0
         version: 4.28.0

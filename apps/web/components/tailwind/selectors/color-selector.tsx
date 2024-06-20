@@ -1,5 +1,5 @@
 import { Check, ChevronDown } from "lucide-react";
-import { EditorBubbleItem, useEditor } from "novel";
+import { EditorBubbleItem, useEditor } from "lotion";
 
 import { Button } from "@/components/tailwind/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/tailwind/ui/popover";
@@ -11,7 +11,7 @@ export interface BubbleColorMenuItem {
 const TEXT_COLORS: BubbleColorMenuItem[] = [
   {
     name: "Default",
-    color: "var(--novel-black)",
+    color: "var(--lotion-black)",
   },
   {
     name: "Purple",
@@ -50,39 +50,39 @@ const TEXT_COLORS: BubbleColorMenuItem[] = [
 const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
   {
     name: "Default",
-    color: "var(--novel-highlight-default)",
+    color: "var(--lotion-highlight-default)",
   },
   {
     name: "Purple",
-    color: "var(--novel-highlight-purple)",
+    color: "var(--lotion-highlight-purple)",
   },
   {
     name: "Red",
-    color: "var(--novel-highlight-red)",
+    color: "var(--lotion-highlight-red)",
   },
   {
     name: "Yellow",
-    color: "var(--novel-highlight-yellow)",
+    color: "var(--lotion-highlight-yellow)",
   },
   {
     name: "Blue",
-    color: "var(--novel-highlight-blue)",
+    color: "var(--lotion-highlight-blue)",
   },
   {
     name: "Green",
-    color: "var(--novel-highlight-green)",
+    color: "var(--lotion-highlight-green)",
   },
   {
     name: "Orange",
-    color: "var(--novel-highlight-orange)",
+    color: "var(--lotion-highlight-orange)",
   },
   {
     name: "Pink",
-    color: "var(--novel-highlight-pink)",
+    color: "var(--lotion-highlight-pink)",
   },
   {
     name: "Gray",
-    color: "var(--novel-highlight-gray)",
+    color: "var(--lotion-highlight-gray)",
   },
 ];
 

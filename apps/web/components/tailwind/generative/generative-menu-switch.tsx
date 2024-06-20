@@ -1,6 +1,6 @@
-import { EditorBubble, useEditor } from "novel";
-import { removeAIHighlight } from "novel/extensions";
-import {} from "novel/plugins";
+import { EditorBubble, useEditor } from "lotion";
+import { removeAIHighlight } from "lotion/extensions";
+import {} from "lotion/plugins";
 import { Fragment, type ReactNode, useEffect } from "react";
 import { Button } from "../ui/button";
 import Magic from "../ui/icons/magic";

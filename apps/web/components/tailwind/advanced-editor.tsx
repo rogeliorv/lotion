@@ -9,8 +9,8 @@ import {
   type EditorInstance,
   EditorRoot,
   type JSONContent,
-} from "novel";
-import { ImageResizer, handleCommandNavigation } from "novel/extensions";
+} from "lotion";
+import { ImageResizer, handleCommandNavigation } from "lotion/extensions";
 import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { defaultExtensions } from "./extensions";
@@ -19,7 +19,7 @@ import { LinkSelector } from "./selectors/link-selector";
 import { NodeSelector } from "./selectors/node-selector";
 import { Separator } from "./ui/separator";
 
-import { handleImageDrop, handleImagePaste } from "novel/plugins";
+import { handleImageDrop, handleImagePaste } from "lotion/plugins";
 import GenerativeMenuSwitch from "./generative/generative-menu-switch";
 import { uploadFn } from "./image-upload";
 import { TextButtons } from "./selectors/text-buttons";
@@ -54,13 +54,13 @@ const TailwindAdvancedEditor = () => {
     const json = editor.getJSON();
     setCharsCount(editor.storage.characterCount.words());
     window.localStorage.setItem("html-content", highlightCodeblocks(editor.getHTML()));
-    window.localStorage.setItem("novel-content", JSON.stringify(json));
+    window.localStorage.setItem("lotion-content", JSON.stringify(json));
     window.localStorage.setItem("markdown", editor.storage.markdown.getMarkdown());
     setSaveStatus("Saved");
   }, 500);
 
   useEffect(() => {
-    const content = window.localStorage.getItem("novel-content");
+    const content = window.localStorage.getItem("lotion-content");
     if (content) setInitialContent(JSON.parse(content));
     else setInitialContent(defaultEditorContent);
   }, []);

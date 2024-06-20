@@ -2,7 +2,7 @@ import { useAtom, useSetAtom } from "jotai";
 import { useEffect, forwardRef, createContext } from "react";
 import { Command } from "cmdk";
 import { queryAtom, rangeAtom } from "../utils/atoms";
-import { novelStore } from "../utils/store";
+import { lotionStore } from "../utils/store";
 import type tunnel from "tunnel-rat";
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { Range } from "@tiptap/core";
@@ -15,8 +15,8 @@ interface EditorCommandOutProps {
 }
 
 export const EditorCommandOut: FC<EditorCommandOutProps> = ({ query, range }) => {
-  const setQuery = useSetAtom(queryAtom, { store: novelStore });
-  const setRange = useSetAtom(rangeAtom, { store: novelStore });
+  const setQuery = useSetAtom(queryAtom, { store: lotionStore });
+  const setRange = useSetAtom(rangeAtom, { store: lotionStore });
 
   useEffect(() => {
     setQuery(query);

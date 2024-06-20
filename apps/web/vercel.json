@@ -1,12 +1,3 @@
 {
-  "rewrites": [
-    {
-      "source": "/docs",
-      "destination": "https://novel.mintlify.dev/docs"
-    },
-    {
-      "source": "/docs/:match*",
-      "destination": "https://novel.mintlify.dev/docs/:match*"
-    }
-  ]
+  "rewrites": []
 }

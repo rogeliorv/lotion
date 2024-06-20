@@ -13,8 +13,8 @@ import {
   Twitter,
   UpdatedImage,
   Youtube,
-} from "novel/extensions";
-import { UploadImagesPlugin } from "novel/plugins";
+} from "lotion/extensions";
+import { UploadImagesPlugin } from "lotion/plugins";
 
 import { cx } from "class-variance-authority";
 import { common, createLowlight } from "lowlight";

@@ -5,9 +5,9 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import Providers from "./providers";
 
-const title = "Novel - Notion-style WYSIWYG editor with AI-powered autocompletions";
+const title = "Lotion - A Notion style editor with AI thrown on top";
 const description =
-  "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions. Built with Tiptap, OpenAI, and Vercel AI SDK.";
+  "Lotion is a Notion editor with AI thrown on top. Built with Tiptap, Novel, OpenAI, and Vercel AI SDK.";
 
 export const metadata: Metadata = {
   title,
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     title,
     description,
     card: "summary_large_image",
-    creator: "@steventey",
+    creator: "Encode Club - Group 13",
   },
-  metadataBase: new URL("https://novel.sh"),
+  metadataBase: new URL("https://lotion.vercel.app"),
 };
 
 export const viewport: Viewport = {

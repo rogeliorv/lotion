@@ -28,7 +28,7 @@ export async function POST(req: Request): Promise<Response> {
       limiter: Ratelimit.slidingWindow(50, "1 d"),
     });
 
-    const { success, limit, reset, remaining } = await ratelimit.limit(`novel_ratelimit_${ip}`);
+    const { success, limit, reset, remaining } = await ratelimit.limit(`lotion_ratelimit_${ip}`);
 
     if (!success) {
       return new Response("You have reached your request limit for the day.", {

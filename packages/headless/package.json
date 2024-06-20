@@ -1,7 +1,7 @@
 {
-  "name": "novel",
-  "version": "0.4.2",
-  "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
+  "name": "lotion",
+  "version": "0.4.3",
+  "description": "A Notion style editor AI thrown on top. Based on Novel",
   "license": "Apache-2.0",
   "type": "module",
   "main": "dist/index.cjs",
@@ -84,17 +84,19 @@
     "typescript": "^5.3.3"
   },
   "author": "Steven Tey <stevensteel97@gmail.com>",
-  "homepage": "https://novel.sh",
+  "homepage": "https://lotion.vercel.app",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/steven-tey/novel.git"
+    "url": "git+https://github.com/rogeliorv/lotion.git"
   },
   "bugs": {
-    "url": "https://github.com/steven-tey/novel/issues"
+    "url": "https://github.com/rogeliorv/lotion/issues"
   },
   "keywords": [
     "ai",
     "novel",
+    "lotion",
+    "encode",
     "editor",
     "markdown",
     "nextjs",

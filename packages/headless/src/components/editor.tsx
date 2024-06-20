@@ -3,7 +3,7 @@ import { EditorProvider } from "@tiptap/react";
 import { Provider } from "jotai";
 import tunnel from "tunnel-rat";
 import { simpleExtensions } from "../extensions";
-import { novelStore } from "../utils/store";
+import { lotionStore } from "../utils/store";
 import { EditorCommandTunnelContext } from "./editor-command";
 import type { FC, ReactNode } from "react";
 import type { EditorProviderProps, JSONContent } from "@tiptap/react";
@@ -21,7 +21,7 @@ export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
   const tunnelInstance = useRef(tunnel()).current;
 
   return (
-    <Provider store={novelStore}>
+    <Provider store={lotionStore}>
       <EditorCommandTunnelContext.Provider value={tunnelInstance}>{children}</EditorCommandTunnelContext.Provider>
     </Provider>
   );
