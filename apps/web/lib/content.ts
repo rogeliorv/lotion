@@ -173,12 +173,7 @@ export const defaultEditorContent = {
           content: [
             {
               type: "paragraph",
-              content: [
-                {
-                  type: "text",
-                  text: "Image uploads (drag & drop / copy & paste, or select from slash menu) ",
-                },
-              ],
+              content: [{ type: "text", text: "Select any text to bring up the AI assistant. If running locally make sure you've set up your OPENAI_API_KEY environment variable" }],
             },
           ],
         },
@@ -187,27 +182,7 @@ export const defaultEditorContent = {
           content: [
             {
               type: "paragraph",
-              content: [
-                {
-                  type: "text",
-                  text: "AI images coming soon",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: "orderedList",
-      attrs: { tight: true, start: 1 },
-      content: [
-        {
-          type: "listItem",
-          content: [
-            {
-              type: "paragraph",
-              content: [{ type: "text", text: "Start writing and use the 'slash menu' with / to bring up the command menu" }],
+              content: [{ type: "text", text: "Once you edit this page, it will be saved and stored locally. You can reset it by clearing your LocalStorage" }],
             },
           ],
         },
@@ -233,7 +208,7 @@ export const defaultEditorContent = {
               content: [
                 {
                   type: "text",
-                  text: "AI images coming soon",
+                  text: "AI generated images (coming soon)",
                 },
               ],
             },
