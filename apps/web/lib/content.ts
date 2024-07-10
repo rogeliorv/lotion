@@ -87,11 +87,11 @@ export const defaultEditorContent = {
     {
       type: "heading",
       attrs: { level: 3 },
-      content: [{ type: "text", text: "Encode AI bootcamp group 13" }],
+      content: [{ type: "text", text: "Encode AI bootcamp group 11" }],
     },
     {
       type: "paragraph",
-      content: [{ type: "text", text: "This is the final project for Encode AI bootcamp - Group 13. Which includes:" }],
+      content: [{ type: "text", text: "This is the final project for Encode AI bootcamp - Group 11. Which includes:" }],
     },
     {
       type: "orderedList",
