@@ -1,4 +1,4 @@
-<a href="https://lotion.vercel.app">
+<a href="https://lotion-ai.vercel.app">
   <h1 align="center">Lotion is a Notion + AI project for Encode bootcamp. It is based on the Novel project.</h1>
 </a>
 
@@ -20,7 +20,7 @@
 
 ## Introduction
 
-[Lotion](https://lotion.vercel.app/) is a Notion + AI project for Encode bootcamp. It is based on the Novel project.
+[Lotion](https://lotion-ai.vercel.app/) is a Notion + AI project for Encode bootcamp. It is based on the Novel project.
 
 
 <br />

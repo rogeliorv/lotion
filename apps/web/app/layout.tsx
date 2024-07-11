@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     creator: "Encode Club - Group 11",
   },
-  metadataBase: new URL("https://lotion.vercel.app"),
+  metadataBase: new URL("https://lotion-ai.vercel.app"),
 };
 
 export const viewport: Viewport = {

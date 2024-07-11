@@ -84,7 +84,7 @@
     "typescript": "^5.3.3"
   },
   "author": "Steven Tey <stevensteel97@gmail.com>",
-  "homepage": "https://lotion.vercel.app",
+  "homepage": "https://lotion-ai.vercel.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rogeliorv/lotion.git"
