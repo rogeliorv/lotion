@@ -11,13 +11,12 @@ import { match } from "ts-pattern";
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
-  });
+  const { prompt, option, command, apiKey } = await req.json();
+  const openAIApiKey = apiKey || process.env.OPENAI_API_KEY;
   // Check if the OPENAI_API_KEY is set, if not return 400
-  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") {
-    return new Response("Missing OPENAI_API_KEY - make sure to add it to your .env file.", {
+  if (!openAIApiKey || openAIApiKey === "") {
+    console.log(openAIApiKey);
+    return new Response(`Missing OPENAI_API_KEY - make sure to configure it. You used: ${openAIApiKey}`, {
       status: 400,
     });
   }
@@ -42,8 +41,13 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  const { prompt, option, command } = await req.json();
-  const messages = match(option)
+  try {
+    const openai = new OpenAI({
+      apiKey: openAIApiKey,
+      baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
+    });
+
+    const messages = match(option)
     .with("continue", () => [
       {
         role: "system",
@@ -122,20 +126,25 @@ export async function POST(req: Request): Promise<Response> {
     ])
     .run() as ChatCompletionMessageParam[];
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    stream: true,
-    messages,
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    n: 1,
-  });
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      stream: true,
+      messages,
+      temperature: 0.7,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      n: 1,
+    });
 
-  // Convert the response into a friendly text-stream
-  const stream = OpenAIStream(response);
+    // Convert the response into a friendly text-stream
+    const stream = OpenAIStream(response);
 
-  // Respond with the stream
-  return new StreamingTextResponse(stream);
+    // Respond with the stream
+    return new StreamingTextResponse(stream);
+  } catch(error) {
+    return new Response(error.message, {
+      status: 400,
+    });
+  }
 }

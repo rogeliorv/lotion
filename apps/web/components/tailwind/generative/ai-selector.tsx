@@ -6,7 +6,7 @@ import { useCompletion } from "ai/react";
 import { ArrowUp } from "lucide-react";
 import { useEditor } from "lotion";
 import { addAIHighlight } from "lotion/extensions";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Markdown from "react-markdown";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -15,6 +15,7 @@ import Magic from "../ui/icons/magic";
 import { ScrollArea } from "../ui/scroll-area";
 import AICompletionCommands from "./ai-completion-command";
 import AISelectorCommands from "./ai-selector-commands";
+import { ApiKeyContext } from "@/providers/ApiKeyProvider";
 //TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
 interface AISelectorProps {
@@ -25,6 +26,8 @@ interface AISelectorProps {
 export function AISelector({ onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
   const [inputValue, setInputValue] = useState("");
+  const { apiKey } = useContext(ApiKeyContext);
+  console.log(apiKey);
 
   const { completion, complete, isLoading } = useCompletion({
     api: "/api/generate",
@@ -78,14 +81,14 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
               onClick={() => {
                 if (completion)
                   return complete(completion, {
-                    body: { option: "zap", command: inputValue },
+                    body: { option: "zap", command: inputValue, apiKey },
                   }).then(() => setInputValue(""));
 
                 const slice = editor.state.selection.content();
                 const text = editor.storage.markdown.serializer.serialize(slice.content);
 
                 complete(text, {
-                  body: { option: "zap", command: inputValue },
+                  body: { option: "zap", command: inputValue, apiKey },
                 }).then(() => setInputValue(""));
               }}
             >
@@ -101,7 +104,7 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
               completion={completion}
             />
           ) : (
-            <AISelectorCommands onSelect={(value, option) => complete(value, { body: { option } })} />
+            <AISelectorCommands onSelect={(value, option) => complete(value, { body: { option, apiKey } })} />
           )}
         </>
       )}
