@@ -1,4 +1,4 @@
-import { createImageUpload } from "lotion/plugins";
+import { createImageUpload, createGeneratedImageFunction } from "lotion/plugins";
 import { toast } from "sonner";
 
 const onUpload = (file: File) => {
@@ -44,6 +44,55 @@ const onUpload = (file: File) => {
   });
 };
 
+
+const fetchGeneratedImage = (imgPrompt: string, apiKey: string) => {
+  const promise = fetch("/api/generateImage", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-magic-header": 'magic_secret',
+    },
+    body: JSON.stringify({ prompt: imgPrompt, apiKey }),
+  });
+
+  return new Promise((resolve, reject) => {
+    toast.promise(
+      promise.then(async (res) => {
+        // TODO: Manage success of the image geneartion
+        if (res.status === 200) {
+          const { url } = (await res.json()) as { url: string };
+          // preload the image
+          const image = new Image();
+          image.src = url;
+          image.onload = () => {
+            resolve(url);
+          };
+          // No blob store configured
+        } else if (res.status === 401) {
+          throw new Error("401 - Unauthorized");
+        }
+        else if (res.status === 410) {
+          throw new Error("This API has been deprecated by its author");
+        }
+        else if (res.status === 400) {
+          throw new Error("Bad Request. Did you configure your API key?");
+        } else {
+          throw new Error("Error generating image. Please try again.");
+        }
+      }),
+      {
+        loading: "Generating image...",
+        success: "Image generated successfully.",
+        error: (e) => {
+          reject(e);
+          return e.message;
+        },
+      },
+    );
+  });
+};
+
+
 export const uploadFn = createImageUpload({
   onUpload,
   validateFn: (file) => {
@@ -57,4 +106,8 @@ export const uploadFn = createImageUpload({
     }
     return true;
   },
+});
+
+export const insertGeneratedImage = createGeneratedImageFunction({
+  fetchGeneratedImage,
 });

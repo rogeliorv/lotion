@@ -208,7 +208,7 @@ export const defaultEditorContent = {
               content: [
                 {
                   type: "text",
-                  text: "AI generated images (coming soon)",
+                  text: "AI generated",
                 },
               ],
             },

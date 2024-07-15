@@ -6,7 +6,7 @@ import { useCompletion } from "ai/react";
 import { ArrowUp } from "lucide-react";
 import { useEditor } from "lotion";
 import { addAIHighlight } from "lotion/extensions";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import Markdown from "react-markdown";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -16,6 +16,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import AICompletionCommands from "./ai-completion-command";
 import AISelectorCommands from "./ai-selector-commands";
 import { ApiKeyContext } from "@/providers/ApiKeyProvider";
+import { insertGeneratedImage } from "../image-upload";
 //TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
 interface AISelectorProps {
@@ -27,9 +28,9 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
   const [inputValue, setInputValue] = useState("");
   const { apiKey } = useContext(ApiKeyContext);
-  console.log(apiKey);
+  const [isImageLoading, setIsImageLoading] = useState(false);
 
-  const { completion, complete, isLoading } = useCompletion({
+  const { completion, complete, isLoading: isTextLoading } = useCompletion({
     api: "/api/generate",
     onResponse: (response) => {
       if (response.status === 429) {
@@ -41,6 +42,15 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
       toast.error(e.message);
     },
   });
+
+
+  const isLoading = isImageLoading || isTextLoading;
+
+  const generateImage = useCallback((imgPrompt) => {
+    setIsImageLoading(true);
+    const pos = editor.view.state.selection.from;
+    insertGeneratedImage(imgPrompt, apiKey, editor.view, pos);
+  }, []);
 
   const hasCompletion = completion.length > 0;
 
@@ -104,7 +114,10 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
               completion={completion}
             />
           ) : (
-            <AISelectorCommands onSelect={(value, option) => complete(value, { body: { option, apiKey } })} />
+            <AISelectorCommands
+              onSelect={(value, option) => complete(value, { body: { option, apiKey } })}
+              onImageGeneration={(text) => generateImage(text) }
+              />
           )}
         </>
       )}

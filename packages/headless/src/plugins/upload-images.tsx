@@ -55,6 +55,10 @@ export interface ImageUploadOptions {
   onUpload: (file: File) => Promise<unknown>;
 }
 
+export interface ImageGenerationOptions {
+  fetchGeneratedImage: (imgPrompt: string, apiKey: string) => Promise<unknown>;
+}
+
 export const createImageUpload =
   ({ validateFn, onUpload }: ImageUploadOptions): UploadFn =>
   (file, view, pos) => {
@@ -111,7 +115,50 @@ export const createImageUpload =
     });
   };
 
+export const createGeneratedImageFunction =
+  ({ fetchGeneratedImage }: ImageGenerationOptions): GenerateImageFn =>
+  (imgPrompt, apiKey, view, pos) => {
+    // A fresh object to act as the ID for this upload
+    const id = {};
+
+    // Replace the selection with a placeholder
+    const tr = view.state.tr;
+    if (!tr.selection.empty) tr.deleteSelection();
+
+    tr.setMeta(uploadKey, {
+      add: {
+        id,
+        pos,
+        src: imgPrompt,
+      },
+    });
+    view.dispatch(tr);
+
+    fetchGeneratedImage(imgPrompt, apiKey).then((imageSrc) => {
+      const { schema } = view.state;
+
+      const pos = findPlaceholder(view.state, id);
+
+      // If the content around the placeholder has been deleted, drop
+      // the image
+      if (pos == null) return;
+
+      const node = schema.nodes.image?.create({ src: imageSrc });
+      if (!node) return;
+
+      const transaction = view.state.tr.replaceWith(pos, pos, node).setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
+    }, () => {
+      // Deletes the image placeholder on error
+      const transaction = view.state.tr
+        .delete(pos, pos)
+        .setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
+    });
+  };
+
 export type UploadFn = (file: File, view: EditorView, pos: number) => void;
+export type GenerateImageFn = (imgUrl: string, apiKey: string, view: EditorView, pos: number) => void;
 
 export const handleImagePaste = (view: EditorView, event: ClipboardEvent, uploadFn: UploadFn) => {
   if (event.clipboardData?.files.length) {

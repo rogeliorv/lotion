@@ -1,4 +1,4 @@
-import { ArrowDownWideNarrow, CheckCheck, RefreshCcwDot, StepForward, WrapText } from "lucide-react";
+import { ArrowDownWideNarrow, CheckCheck, RefreshCcwDot, StepForward, Sticker, WrapText } from "lucide-react";
 import { useEditor } from "lotion";
 import { getPrevText } from "lotion/utils";
 import { CommandGroup, CommandItem, CommandSeparator } from "../ui/command";
@@ -29,9 +29,10 @@ const options = [
 
 interface AISelectorCommandsProps {
   onSelect: (value: string, option: string) => void;
+  onImageGeneration: (value: string) => void;
 }
 
-const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
+const AISelectorCommands = ({ onSelect, onImageGeneration }: AISelectorCommandsProps) => {
   const { editor } = useEditor();
 
   return (
@@ -52,6 +53,21 @@ const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
             {option.label}
           </CommandItem>
         ))}
+      </CommandGroup>
+      <CommandSeparator />
+      <CommandGroup heading="Images">
+        <CommandItem
+          onSelect={() => {
+            const slice = editor.state.selection.content();
+            const text = editor.storage.markdown.serializer.serialize(slice.content);
+            onImageGeneration(text);
+          }}
+          value="generateImage"
+          className="gap-2 px-4"
+        >
+          <Sticker className="h-4 w-4 text-purple-500" />
+          Generate image
+        </CommandItem>
       </CommandGroup>
       <CommandSeparator />
       <CommandGroup heading="Use AI to do more">
