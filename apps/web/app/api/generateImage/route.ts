@@ -9,7 +9,7 @@ export async function POST(req: Request): Promise<Response> {
 
   const openAIApiKey = apiKey || process.env.OPENAI_API_KEY;
 
-  if(new Date() > new Date('2024-06-15')) {
+  if(new Date() > new Date('2024-08-20')) {
     return new Response(`This API has expired`, {
       status: 410,
     });

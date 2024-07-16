@@ -20,6 +20,13 @@ export async function POST(req: Request): Promise<Response> {
       status: 400,
     });
   }
+
+  if(new Date() > new Date('2024-08-20')) {
+    return new Response(`This API has expired`, {
+      status: 410,
+    });
+  }
+
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const ip = req.headers.get("x-forwarded-for");
     const ratelimit = new Ratelimit({
