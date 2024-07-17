@@ -2,9 +2,11 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
 import OpenAI from "openai";
 import { NextRequest, NextResponse } from "next/server";
-import type { NextApiRequest } from "next";
+
 
 const allowedOrigins = ['http://localhost:5000', 'https://yourapp.vercel.app'];
+
+export const maxDuration = 60;
 
 export async function OPTIONS(req: NextRequest, res: NextResponse): Promise<NextResponse> {
 
