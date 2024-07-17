@@ -6,9 +6,9 @@ import type { NextApiRequest } from "next";
 
 const allowedOrigins = ['http://localhost:5000', 'https://yourapp.vercel.app'];
 
-export async function OPTIONS(req: NextApiRequest, res: NextResponse): Promise<NextResponse> {
+export async function OPTIONS(req: NextRequest, res: NextResponse): Promise<NextResponse> {
 
-  const origin = req.headers.origin;
+  const origin = req.headers.get('origin');
 
   if (origin && allowedOrigins.includes(origin)) {
     return new NextResponse(null, {
